@@ -26,9 +26,19 @@ RUN_ID_PLAIN_RE = re.compile(r"^\d{14}$")        # 20251026170002
 
 # Stable CSV schema for students
 CSV_COLUMNS = [
-    "post_id", "run_id", "scraped_at",
-    "price", "year", "make", "model", "mileage",
-    "source_txt"
+    "post_id",
+    "run_id",
+    "scraped_at",
+    "price",
+    "year",
+    "make",
+    "model",
+    "mileage",
+    "transmission",
+    "fuel_type",
+    "num_doors",
+    "is_truck",
+    "source_txt",
 ]
 
 def _list_run_ids(bucket: str, structured_prefix: str) -> list[str]:
@@ -116,7 +126,7 @@ def materialize_http(request: Request):
                     latest_by_post[pid] = rec
 
         base = f"{STRUCTURED_PREFIX}/datasets"
-        final_key = f"{base}/listings_master.csv"
+        final_key = f"{base}/listings_master_v2.csv"
         rows = _write_csv(latest_by_post.values(), final_key)
 
         return jsonify({
