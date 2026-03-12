@@ -1,7 +1,7 @@
 # main.py
 # Build a single, ever-growing CSV from all structured JSONL files.
 # Reads:  gs://<bucket>/<STRUCTURED_PREFIX>/run_id=*/jsonl/*.jsonl
-# Writes: gs://<bucket>/<STRUCTURED_PREFIX>/datasets/listings_master.csv  (atomic publish)
+# Writes: gs://<bucket>/<STRUCTURED_PREFIX>/datasets/listings_master_v2.csv  (atomic publish)
 
 import csv
 import io
@@ -104,7 +104,7 @@ def materialize_http(request: Request):
     """
     HTTP POST (no body needed).
     Crawls ALL structured run folders, de-dupes by post_id (keep newest run),
-    and writes one CSV directly to .../datasets/listings_master.csv.
+    and writes one CSV directly to .../datasets/listings_master_v2.csv.
     Returns JSON with counts and output path.
     """
     try:
@@ -116,11 +116,16 @@ def materialize_http(request: Request):
             return jsonify({"ok": False, "error": f"no runs found under {STRUCTURED_PREFIX}/"}), 200
 
         latest_by_post: Dict[str, Dict] = {}
+
         for rid in run_ids:
             for rec in _jsonl_records_for_run(BUCKET_NAME, STRUCTURED_PREFIX, rid):
+                if not any(k in rec for k in ["transmission", "fuel_type", "num_doors", "is_truck"]):
+                    continue
+
                 pid = rec.get("post_id")
                 if not pid:
                     continue
+
                 prev = latest_by_post.get(pid)
                 if (prev is None) or (_run_id_to_dt(rec.get("run_id", rid)) > _run_id_to_dt(prev.get("run_id", ""))):
                     latest_by_post[pid] = rec
@@ -137,5 +142,4 @@ def materialize_http(request: Request):
             "output_csv": f"gs://{BUCKET_NAME}/{final_key}"
         }), 200
     except Exception as e:
-        # Return a JSON error so you don't just see a plain 500
-        return jsonify({"ok": False, "error": f"{type(e).__name__}: {e}"}), 500
+        return jsonify({"ok": False, "error": str(e)}), 500
