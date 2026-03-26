@@ -156,11 +156,11 @@ def _safe_int(x):
 # -------------------- VERTEX AI CALL --------------------
 def _vertex_extract_fields(raw_text: str) -> dict:
     """
-    Ask Gemini to return JSON with exactly: price, year, make, model, mileage.
+    Ask Gemini to return JSON with exactly:
+    price, year, make, model, mileage, body_type, color, condition, title_status.
     """
     model = _get_vertex_model()
 
-    # Strict JSON schema - FIX: Removed "additionalProperties": False
     schema = {
         "type": "object",
         "properties": {
@@ -169,33 +169,30 @@ def _vertex_extract_fields(raw_text: str) -> dict:
             "make": {"type": "string", "nullable": True},
             "model": {"type": "string", "nullable": True},
             "mileage": {"type": "integer", "nullable": True},
-            "body_type": {"type": "string",  "nullable": True},
-            "color": {"type": "string",  "nullable": True},
-            "condition": {"type": "string",  "nullable": True},
-            "title_status": {"type": "string",  "nullable": True},
+            "body_type": {"type": "string", "nullable": True},
+            "color": {"type": "string", "nullable": True},
+            "condition": {"type": "string", "nullable": True},
+            "title_status": {"type": "string", "nullable": True},
         },
-        "required": ["price", "year", "make", "model", "mileage"]
+        "required": ["price", "year", "make", "model", "mileage"],
     }
 
-    # System instruction (will be prepended to the prompt)
-sys_instr = (
-    "Extract ONLY the following fields from the input text. "
-    "Return a strict JSON object that conforms to the provided schema. "
-    "If a value is not present, use null. "
-    "Rules: integers for price/year/mileage; price in USD; mileage in miles; "
-    "make and model should match the vehicle being sold; "
-    "body_type should be values like sedan, coupe, SUV, hatchback, wagon, van, truck, convertible; "
-    "color should be the main exterior color only; "
-    "condition should reflect the seller's description such as excellent, good, fair, like new, or salvage; "
-    "title_status should reflect values like clean, rebuilt, salvage, lien, missing, or null if not stated; "
-    "do not infer values not explicitly present; do not add extra keys."
-)
+    sys_instr = (
+        "Extract ONLY the following fields from the input text. "
+        "Return a strict JSON object that conforms to the provided schema. "
+        "If a value is not present, use null. "
+        "Rules: integers for price/year/mileage; price in USD; mileage in miles; "
+        "make and model should match the vehicle being sold; "
+        "body_type should be values like sedan, coupe, SUV, hatchback, wagon, van, truck, convertible; "
+        "color should be the main exterior color only; "
+        "condition should reflect the seller's description such as excellent, good, fair, like new, or salvage; "
+        "title_status should reflect values like clean, rebuilt, salvage, lien, missing, or null if not stated; "
+        "do not infer values not explicitly present; do not add extra keys."
+    )
 
-    # FIX: Combine instruction and text into one prompt string (SDK compatibility)
     prompt = f"{sys_instr}\n\nTEXT:\n{raw_text}"
 
     gen_cfg = GenerationConfig(
-        # FIX: system_instruction removed to fix TypeError 
         temperature=0.0,
         top_p=1.0,
         top_k=40,
@@ -204,20 +201,17 @@ sys_instr = (
         response_schema=schema,
     )
 
-    # --- LLM CALL WITH RETRY ---
     max_attempts = 3
     resp = None
+
     for attempt in range(max_attempts):
         try:
-            # Pass the single string prompt
             resp = model.generate_content(prompt, generation_config=gen_cfg)
             break
         except Exception as e:
-            # Includes the 404/NotFound error from the previous run
             if not _if_llm_retryable(e) or attempt == max_attempts - 1:
                 logging.error(f"Fatal/non-retryable LLM error or max retries reached: {e}")
                 raise
-            
             sleep_time = LLM_RETRY._calculate_sleep(attempt)
             logging.warning(f"Transient LLM error on attempt {attempt+1}/{max_attempts}. Retrying in {sleep_time:.2f}s...")
             time.sleep(sleep_time)
@@ -227,13 +221,13 @@ sys_instr = (
 
     parsed = json.loads(resp.text)
 
-    # Normalize fields post-extraction
     parsed["price"] = _safe_int(parsed.get("price"))
     parsed["year"] = _safe_int(parsed.get("year"))
     parsed["mileage"] = _safe_int(parsed.get("mileage"))
-    
+
     def _norm_str(s):
-        if s is None: return None
+        if s is None:
+            return None
         s = str(s).strip()
         return s if s else None
 
