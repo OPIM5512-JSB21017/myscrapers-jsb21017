@@ -169,18 +169,27 @@ def _vertex_extract_fields(raw_text: str) -> dict:
             "make": {"type": "string", "nullable": True},
             "model": {"type": "string", "nullable": True},
             "mileage": {"type": "integer", "nullable": True},
+            "body_type": {"type": "string",  "nullable": True},
+            "color": {"type": "string",  "nullable": True},
+            "condition": {"type": "string",  "nullable": True},
+            "title_status": {"type": "string",  "nullable": True},
         },
         "required": ["price", "year", "make", "model", "mileage"]
     }
 
     # System instruction (will be prepended to the prompt)
-    sys_instr = (
-        "Extract ONLY the following fields from the input text. "
-        "Return a strict JSON object that conforms to the provided schema. "
-        "If a value is not present, use null. "
-        "Rules: integers for price/year/mileage; price in USD; mileage in miles; "
-        "do not infer values not explicitly present; do not add extra keys."
-    )
+sys_instr = (
+    "Extract ONLY the following fields from the input text. "
+    "Return a strict JSON object that conforms to the provided schema. "
+    "If a value is not present, use null. "
+    "Rules: integers for price/year/mileage; price in USD; mileage in miles; "
+    "make and model should match the vehicle being sold; "
+    "body_type should be values like sedan, coupe, SUV, hatchback, wagon, van, truck, convertible; "
+    "color should be the main exterior color only; "
+    "condition should reflect the seller's description such as excellent, good, fair, like new, or salvage; "
+    "title_status should reflect values like clean, rebuilt, salvage, lien, missing, or null if not stated; "
+    "do not infer values not explicitly present; do not add extra keys."
+)
 
     # FIX: Combine instruction and text into one prompt string (SDK compatibility)
     prompt = f"{sys_instr}\n\nTEXT:\n{raw_text}"
@@ -230,6 +239,10 @@ def _vertex_extract_fields(raw_text: str) -> dict:
 
     parsed["make"] = _norm_str(parsed.get("make"))
     parsed["model"] = _norm_str(parsed.get("model"))
+    parsed["body_type"] = _norm_str(parsed.get("body_type"))
+    parsed["color"] = _norm_str(parsed.get("color"))
+    parsed["condition"] = _norm_str(parsed.get("condition"))
+    parsed["title_status"] = _norm_str(parsed.get("title_status"))
 
     return parsed
 
@@ -318,6 +331,10 @@ def llm_extract_http(request: Request):
                 "make": parsed.get("make"),
                 "model": parsed.get("model"),
                 "mileage": parsed.get("mileage"),
+                "body_type": parsed.get("body_type"),
+                "color": parsed.get("color"),
+                "condition": parsed.get("condition"),
+                "title_status": parsed.get("title_status"),
                 "llm_provider": "vertex",
                 "llm_model": LLM_MODEL,
                 "llm_ts": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
