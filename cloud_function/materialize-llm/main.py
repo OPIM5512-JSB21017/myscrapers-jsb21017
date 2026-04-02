@@ -19,11 +19,9 @@ STRUCTURED_PREFIX  = os.getenv("STRUCTURED_PREFIX", "structured") # e.g., "struc
 
 storage_client = storage.Client()
 
-# Accept BOTH runIDs:
-RUN_ID_ISO_RE   = re.compile(r"^\d{8}T\d{6}Z$")  # 20251026T170002Z
-RUN_ID_PLAIN_RE = re.compile(r"^\d{14}$")        # 20251026170002
+RUN_ID_ISO_RE   = re.compile(r"^\d{8}T\d{6}Z$")
+RUN_ID_PLAIN_RE = re.compile(r"^\d{14}$")
 
-# LLM CSV schema
 CSV_COLUMNS = [
     "post_id",
     "run_id",
@@ -37,6 +35,10 @@ CSV_COLUMNS = [
     "color",
     "condition",
     "title_status",
+    "city",
+    "state",
+    "number_of_owners",
+    "seller_type",
     "llm_provider",
     "llm_model",
     "llm_ts",
@@ -115,7 +117,6 @@ def materialize_http(request: Request):
 
         for rid in run_ids:
             for rec in _jsonl_records_for_run(BUCKET_NAME, STRUCTURED_PREFIX, rid):
-
                 pid = rec.get("post_id")
                 if not pid:
                     continue
