@@ -173,6 +173,10 @@ def _vertex_extract_fields(raw_text: str) -> dict:
             "color": {"type": "string", "nullable": True},
             "condition": {"type": "string", "nullable": True},
             "title_status": {"type": "string", "nullable": True},
+            "city": {"type": "string", "nullable": True},
+            "state": {"type": "string", "nullable": True},
+            "number_of_owners": {"type": "integer", "nullable": True},
+            "seller_type": {"type": "string", "nullable": True},
         },
         "required": ["price", "year", "make", "model", "mileage"],
     }
@@ -181,12 +185,17 @@ def _vertex_extract_fields(raw_text: str) -> dict:
         "Extract ONLY the following fields from the input text. "
         "Return a strict JSON object that conforms to the provided schema. "
         "If a value is not present, use null. "
-        "Rules: integers for price/year/mileage; price in USD; mileage in miles; "
+        "Rules: integers for price/year/mileage/number_of_owners; "
+        "price in USD; mileage in miles; "
         "make and model should match the vehicle being sold; "
         "body_type should be values like sedan, coupe, SUV, hatchback, wagon, van, truck, convertible; "
         "color should be the main exterior color only; "
         "condition should reflect the seller's description such as excellent, good, fair, like new, or salvage; "
         "title_status should reflect values like clean, rebuilt, salvage, lien, missing, or null if not stated; "
+        "city should be the city named in the listing if clearly stated; "
+        "state should be the U.S. state if clearly stated; "
+        "number_of_owners should only be filled when the listing clearly states the owner count, otherwise null; "
+        "seller_type should be values like dealer or private seller if that can be determined from the listing, otherwise null; "
         "do not infer values not explicitly present; do not add extra keys."
     )
 
@@ -237,7 +246,11 @@ def _vertex_extract_fields(raw_text: str) -> dict:
     parsed["color"] = _norm_str(parsed.get("color"))
     parsed["condition"] = _norm_str(parsed.get("condition"))
     parsed["title_status"] = _norm_str(parsed.get("title_status"))
-
+    parsed["city"] = _norm_str(parsed.get("city"))
+    parsed["state"] = _norm_str(parsed.get("state"))
+    parsed["seller_type"] = _norm_str(parsed.get("seller_type"))
+    parsed["number_of_owners"] = _safe_int(parsed.get("number_of_owners"))
+    
     return parsed
 
 
@@ -329,6 +342,10 @@ def llm_extract_http(request: Request):
                 "color": parsed.get("color"),
                 "condition": parsed.get("condition"),
                 "title_status": parsed.get("title_status"),
+                "city": parsed.get("city"),
+                "state": parsed.get("state"),
+                "number_of_owners": parsed.get("number_of_owners"),
+                "seller_type": parsed.get("seller_type"),
                 "llm_provider": "vertex",
                 "llm_model": LLM_MODEL,
                 "llm_ts": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
