@@ -1,0 +1,129 @@
+feature,importance_mean,importance_std
+num__mileage,0.3533517808037082,0.03483877580952445
+num__year,0.0571792222430765,0.01817472673988058
+num__mileage_per_year,0.049458698743331676,0.011320049607903213
+num__vehicle_age,0.044965589537500114,0.015448744998716447
+cat__city_New Haven,0.023599288078754676,0.012721182938701442
+cat__seller_type_private seller,0.01818081301161083,0.01569219546358757
+cat__seller_type_dealer,0.017643479443740694,0.017057748478757895
+cat__condition_Used,0.005035829030760508,0.002198477695474139
+cat__body_type_truck,0.004471941641456312,0.003153106952257615
+cat__city_North Haven,0.004202576407633152,0.0007923222296020318
+cat__body_type_sedan,0.0025588950457244184,0.0007714169879725676
+cat__city_Bridgeport,0.002150038996656145,0.0011025862077565134
+cat__body_type_coupe,0.0016325441277634466,0.001146642051821173
+cat__body_type_SUV,0.0013099748128810652,0.001476891770656736
+cat__body_type_unknown,0.0012104151695907506,0.0005659833071006664
+cat__condition_good,0.0010067997881738288,0.0012436816332020478
+cat__color_grey,0.0008842120851485391,0.0008767044345788988
+cat__state_CT,0.0008389515221373101,0.00021176923646000967
+cat__color_unknown,0.0007395245280021445,0.0014728826159024749
+cat__color_white,0.00062779110649267,0.0003487248128024264
+cat__condition_like new,0.0005949145349323781,0.00415719284723941
+cat__condition_excellent,0.00043903075711455576,0.0039813369309895175
+cat__body_type_wagon,0.0003800876609023729,0.00013047362931044263
+cat__condition_unknown,0.0002470828375291556,0.0004714635216881077
+cat__color_red,0.00010441849287302629,0.00012545046205069608
+cat__city_Branford,9.619829066086494e-05,0.00010325120262240492
+cat__city_Stamford,3.493597232187007e-05,3.519173284884956e-05
+cat__city_Wallingford,2.9757002891872553e-05,1.4009710751576645e-05
+cat__body_type_hatchback,1.8737050126271803e-05,3.760270062328458e-05
+cat__state_NH,1.7182514226021796e-05,3.198826513346241e-05
+cat__city_Milford,1.2032696017838517e-05,1.2873133468220852e-05
+cat__city_Derby,8.199208874470899e-06,6.746565906299022e-07
+cat__city_East Granby,3.8019985894699458e-06,1.4443670676146002e-05
+cat__city_Shelton,2.8807839227429355e-06,3.5022322100688357e-06
+cat__body_type_convertible,2.252548262116072e-06,1.2412441490083321e-05
+cat__color_brown,5.849251938583322e-07,5.339750179929686e-06
+cat__title_status_clean,4.170415872750688e-07,8.78776832338848e-07
+cat__color_green,9.429093434931702e-08,1.8858633528214968e-07
+cat__body_type_minivan,4.790936523058065e-08,2.506088611925543e-05
+cat__color_Black,2.8275449559522768e-08,8.482634867856832e-08
+cat__city_Hamden,1.4346889587457668e-08,4.3040668762373005e-08
+cat__body_type_pickup,0.0,0.0
+cat__color_Gray,0.0,0.0
+cat__color_Amethyst Gray,0.0,0.0
+cat__color_Red,0.0,0.0
+cat__color_Seashell Grey Metallic,0.0,0.0
+cat__color_Plum purple,0.0,0.0
+cat__color_Grey,0.0,0.0
+cat__condition_great condition,0.0,0.0
+cat__color_yellow,0.0,0.0
+cat__color_Caviar,0.0,0.0
+cat__color_Ecotronic Gray,0.0,0.0
+cat__color_Blue,0.0,0.0
+cat__color_Black Mosaic Black Metallic,0.0,0.0
+cat__color_BURGANDY,0.0,0.0
+cat__color_Chronos Gray Metallic,0.0,0.0
+cat__color_CREAM,0.0,0.0
+cat__body_type_bus,0.0,0.0
+cat__body_type_Sport Utility,0.0,0.0
+cat__body_type_Sedan,0.0,0.0
+cat__body_type_Limousine,0.0,0.0
+cat__body_type_COUPE,0.0,0.0
+cat__body_type_Wagon,0.0,0.0
+cat__body_type_Minivan,0.0,0.0
+cat__state_NY,0.0,0.0
+cat__city_Naugatuck,0.0,0.0
+cat__city_Middlebury,0.0,0.0
+cat__city_Manchester,0.0,0.0
+cat__city_Killingworth,0.0,0.0
+cat__city_Madison,0.0,0.0
+cat__color_tan,0.0,0.0
+cat__color_orange,0.0,0.0
+cat__color_Tan Silver Coast Metallic,0.0,0.0
+cat__color_Sunrise Red,0.0,0.0
+cat__color_custom,0.0,0.0
+cat__color_White,0.0,0.0
+cat__color_gold,0.0,0.0
+cat__color_gray,0.0,0.0
+cat__condition_Pre-Owned,0.0,0.0
+cat__condition_great conditions,0.0,0.0
+cat__color_Polar Silver,0.0,0.0
+cat__city_East Berlin,0.0,0.0
+cat__city_Dallas,0.0,0.0
+cat__city_Deep River,0.0,0.0
+cat__city_Fair Lawn,0.0,0.0
+cat__city_Fairfield,0.0,0.0
+cat__city_Guilford,0.0,0.0
+cat__city_FAIRFIELD,0.0,0.0
+cat__title_status_rebuilt,0.0,0.0
+cat__title_status_missing,0.0,0.0
+cat__condition_used,0.0,0.0
+cat__city_Bethany,0.0,0.0
+cat__city_Cheshire,0.0,0.0
+cat__condition_repaired,0.0,0.0
+cat__condition_perfect,0.0,0.0
+cat__condition_new,0.0,0.0
+cat__state_unknown,0.0,0.0
+cat__city_Southington,0.0,0.0
+cat__city_Piscataway,0.0,0.0
+cat__city_Poughkeepsie,0.0,0.0
+cat__city_Oxford,0.0,0.0
+cat__city_unknown,0.0,0.0
+cat__city_Hudson,0.0,0.0
+cat__city_HUDSON,0.0,0.0
+cat__city_Erieville,0.0,0.0
+cat__city_Old Saybrook,0.0,0.0
+cat__city_Orange,0.0,0.0
+cat__city_Oakville,0.0,0.0
+cat__city_Northford,0.0,0.0
+cat__city_Norwalk,0.0,0.0
+cat__city_New Milford,0.0,0.0
+cat__city_North Branford,0.0,0.0
+cat__seller_type_unknown,0.0,0.0
+cat__state_NJ,0.0,0.0
+cat__city_new haven,0.0,0.0
+cat__state_GA,0.0,0.0
+cat__city_West Hartford,0.0,0.0
+cat__city_Waterbury,0.0,0.0
+cat__city_Southbury,-8.190106687289145e-08,3.656646358017717e-07
+cat__city_West Haven,-1.8353172557272757e-06,5.505951767181826e-06
+cat__condition_fair,-1.7053593357552187e-05,2.9299406475514514e-05
+num__number_of_owners,-2.6282559283785645e-05,1.2388552259052415e-05
+cat__city_Stratford,-3.315546883518872e-05,6.545988170589967e-06
+cat__color_black,-0.0005604138712752005,0.0014675949861025117
+cat__color_silver,-0.0005606960420757812,0.0007323854165938628
+cat__body_type_van,-0.0007230054225548455,0.00023959140493202844
+cat__city_Meriden,-0.0008259348029988512,0.00020783386701690335
+cat__color_blue,-0.023375985332328753,0.015121685084859384
