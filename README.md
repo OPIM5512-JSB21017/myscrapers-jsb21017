@@ -63,22 +63,16 @@ A separate notebook (**A08_model_trending.ipynb**) visualizes:
 ### Run in Google Colab (Recommended)
 1. Open: notebooks/A08_modeling.ipynb
 
-2. Clone the repository:
-```python
-!git clone https://github.com/OPIM5512-JSB21017/myscrapers-jsb21017.git
-%cd myscrapers-jsb21017
-```
-
-3. Run all cells:
+2. Run all cells:
 - loads dataset
 - trains model
 - generates predictions
 - saves artifacts
 
-4. View Model Trends
+3. Open Trending Notebook
 - Open: notebooks/A08_model_trending.ipynb
 
-5. View Model Trends
+4. View Model Trends
 - Run all cells to visualize:
   - model performance over time
   - feature importance
