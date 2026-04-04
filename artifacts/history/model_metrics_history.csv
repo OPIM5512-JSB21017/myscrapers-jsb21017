@@ -1,3 +1,4 @@
 run_ts,n_rows,train_valid_rows,test_rows,mae,rmse,mape,bias,best_params
 2026-04-04T14:43:34.959503,464,394,70,5613.042966640099,14678.35794975613,0.4521990166389728,-3624.109393195375,"{'model__max_depth': None, 'model__min_samples_leaf': 1, 'model__min_samples_split': 2, 'model__n_estimators': 100}"
 2026-04-04T17:41:05.174781,481,408,73,4363.087865764465,8569.44952100509,0.7240271680750902,-1335.177807585474,"{'model__max_depth': 18, 'model__min_samples_leaf': 1, 'model__min_samples_split': 2, 'model__n_estimators': 200}"
+2026-04-04T19:02:58.290170,486,413,73,3352.6441646812673,9396.927711600583,0.30454481123678323,-1852.2247728991094,"{'model__max_depth': 18, 'model__min_samples_leaf': 1, 'model__min_samples_split': 2, 'model__n_estimators': 200}"
